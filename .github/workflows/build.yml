@@ -1,0 +1,40 @@
+name: .NET Core Desktop
+
+on:
+  push:
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        os: [windows-latest, ubuntu-latest, macos-latest]
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Install .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build the application
+      run: dotnet build --no-restore -c ${{ matrix.configuration }}
+
+    # Upload build artifacts so you can download the compiled binaries
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: NetPresence-${{ matrix.os }}-${{ matrix.configuration }}
+        path: bin/${{ matrix.configuration }}/net8.0/
