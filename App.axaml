@@ -10,13 +10,9 @@
 
     <TrayIcon.Icons>
         <TrayIcons>
-            <TrayIcon Icon="avares://NetPresence/Assets/icon.ico" ToolTipText="Net Presence">
-                <TrayIcon.Menu>
-                    <NativeMenu>
-                        <NativeMenuItem Header="Exit" Click="Exit_Click" />
-                    </NativeMenu>
-                </TrayIcon.Menu>
-            </TrayIcon>
+            <TrayIcon Icon="avares://NetPresence/Assets/icon.ico"
+                      ToolTipText="Net Presence"
+                      Clicked="TrayIcon_Clicked" />
         </TrayIcons>
     </TrayIcon.Icons>
 </Application>
