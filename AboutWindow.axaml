@@ -1,0 +1,21 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="NetPresence.AboutWindow"
+        Title="About NetPresence"
+        Width="340" Height="220"
+        CanResize="False"
+        WindowStartupLocation="CenterScreen"
+        ShowInTaskbar="False">
+
+    <StackPanel Margin="24" Spacing="6">
+        <TextBlock Text="NetPresence" FontSize="20" FontWeight="Bold" />
+        <TextBlock x:Name="VersionText" Text="Version 1.0.0" Foreground="Gray" />
+        <TextBlock x:Name="PlatformText" Text="Platform: Windows" Foreground="Gray" />
+        <Separator Margin="0,12,0,12" />
+        <TextBlock Text="A cross-platform keep presence tool (skip work safely)." TextWrapping="Wrap" />
+        <TextBlock Text="© 2026 astral_reaper and pazurkota" Foreground="Gray" Margin="0,8,0,0" />
+        <Button Content="Zamknij" HorizontalAlignment="Right" Margin="0,16,0,0"
+                Click="Close_Click" />
+    </StackPanel>
+
+</Window>

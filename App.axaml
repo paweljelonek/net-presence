@@ -12,7 +12,7 @@
         <TrayIcons>
             <TrayIcon Icon="avares://NetPresence/Assets/icon.ico"
                       ToolTipText="Net Presence"
-                      Clicked="TrayIcon_Clicked" />
+                      Clicked="ShowWindow_Click" />
         </TrayIcons>
     </TrayIcon.Icons>
 </Application>
