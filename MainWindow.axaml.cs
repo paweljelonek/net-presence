@@ -37,31 +37,19 @@ public partial class MainWindow : Window
         _config.LaunchOnStartup = StartupCheckBox.IsChecked ?? false;
 
         ConfigManager.Save(_config);
-        
         this.Hide();
     }
 
     private void CancelButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        ApplyConfigToUI(); // revert changes to saved state
+        ApplyConfigToUI();
         this.Hide();
     }
 
     protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs e)
     {
         e.Cancel = true;
-        ApplyConfigToUI(); // revert changes to saved state
-        this.Hide();
-    }
-
-    private void CancelButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
-    {
-        this.Hide();
-    }
-
-    protected override void OnClosing(Avalonia.Controls.WindowClosingEventArgs e)
-    {
-        e.Cancel = true;
+        ApplyConfigToUI();
         this.Hide();
     }
 }
