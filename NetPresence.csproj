@@ -19,6 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="NetPresence.Tests\**" />
+    <EmbeddedResource Remove="NetPresence.Tests\**" />
+    <None Remove="NetPresence.Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
 </Project>

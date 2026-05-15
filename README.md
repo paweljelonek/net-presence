@@ -37,5 +37,18 @@ To build a release version:
 dotnet build -c Release
 ```
 
+## Testing
+
+To run the unit tests:
+```bash
+dotnet test
+```
+
+## Configuration
+The application automatically saves user settings to a `config.json` file. Depending on your operating system, the configuration file is securely stored in your user's standard application data directory:
+- **Linux:** `~/.config/net-presence/config.json`
+- **macOS:** `~/.config/net-presence/config.json`
+- **Windows:** `%APPDATA%\net-presence\config.json` (usually `C:\Users\<User>\AppData\Roaming\net-presence\config.json`)
+
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
