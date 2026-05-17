@@ -2,6 +2,9 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using System;
+using System.Runtime.InteropServices;
+using System.Runtime.Versioning;
 
 namespace NetPresence;
 
@@ -14,6 +17,9 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        if (OperatingSystem.IsMacOS())
+            HideDockIcon();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             desktop.ShutdownMode = Avalonia.Controls.ShutdownMode.OnExplicitShutdown;
@@ -23,6 +29,26 @@ public partial class App : Application
         BuildTrayMenu();
         base.OnFrameworkInitializationCompleted();
     }
+
+    [SupportedOSPlatform("macos")]
+    private static void HideDockIcon()
+    {
+        var nsAppClass = objc_getClass("NSApplication");
+        var sharedApp = objc_msgSend_retval(nsAppClass, sel_registerName("sharedApplication"));
+        objc_msgSend(sharedApp, sel_registerName("setActivationPolicy:"), 2); // NSApplicationActivationPolicyAccessory = 2
+    }
+
+    [DllImport("/System/Library/Frameworks/AppKit.framework/AppKit")]
+    private static extern IntPtr objc_getClass(string name);
+
+    [DllImport("/System/Library/Frameworks/AppKit.framework/AppKit")]
+    private static extern IntPtr sel_registerName(string name);
+
+    [DllImport("/System/Library/Frameworks/AppKit.framework/AppKit", EntryPoint = "objc_msgSend")]
+    private static extern IntPtr objc_msgSend_retval(IntPtr receiver, IntPtr selector);
+
+    [DllImport("/System/Library/Frameworks/AppKit.framework/AppKit")]
+    private static extern void objc_msgSend(IntPtr receiver, IntPtr selector, int policy);
 
     private void BuildTrayMenu()
     {
