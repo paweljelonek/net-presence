@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using NetPresence.Models;
 using NetPresence.Services;
+using NetPresence.Services.Startup;
 
 namespace NetPresence;
 
@@ -37,6 +38,7 @@ public partial class MainWindow : Window
         _config.LaunchOnStartup = StartupCheckBox.IsChecked ?? false;
 
         ConfigManager.Save(_config);
+        StartupManager.Apply(_config.LaunchOnStartup);
         this.Hide();
     }
 

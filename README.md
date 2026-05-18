@@ -19,6 +19,10 @@ This project draws heavy inspiration from the following open-source projects:
 ## Features
 - Built with [Avalonia UI](https://avaloniaui.net/) for cross-platform support (Windows, macOS, Linux).
 - System tray icon with basic context menu.
+- Launch at system startup (configurable via the settings window):
+  - **macOS** – LaunchAgent plist: `~/Library/LaunchAgents/dev.jazzcat.net-presence.plist`
+  - **Windows** – Registry key: `HKCU\Software\Microsoft\Windows\CurrentVersion\Run`
+  - **Linux** – XDG autostart entry: `~/.config/autostart/net-presence.desktop`
 - Extensible, minimalistic base setup.
 
 ## Getting Started
