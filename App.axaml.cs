@@ -60,6 +60,9 @@ public partial class App : Application
         var showWindowItem = new NativeMenuItem("Show window");
         showWindowItem.Click += ShowWindow_Click;
 
+        var checkNotificationItem = new NativeMenuItem("Check notification");
+        checkNotificationItem.Click += CheckNotification_Click;
+
         var aboutItem = new NativeMenuItem("About");
         aboutItem.Click += About_Click;
 
@@ -69,6 +72,7 @@ public partial class App : Application
         var menu = new NativeMenu();
         
         menu.Items.Add(showWindowItem);
+        menu.Items.Add(checkNotificationItem);
         menu.Items.Add(aboutItem);
 
         menu.Items.Add(new NativeMenuItemSeparator());
@@ -76,6 +80,12 @@ public partial class App : Application
         menu.Items.Add(exitItem);
 
         trayIcon.Menu = menu;
+    }
+
+    private void CheckNotification_Click(object? sender, System.EventArgs e)
+    {
+        var currentTime = DateTime.Now.ToString("HH:mm:ss");
+        Services.Notifications.NotificationManager.ShowNotification("Hello World", currentTime);
     }
 
     private void About_Click(object? sender, System.EventArgs e)
