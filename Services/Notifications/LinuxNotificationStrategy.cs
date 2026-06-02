@@ -11,8 +11,6 @@ public class LinuxNotificationStrategy : INotificationStrategy
 
     public void ShowNotification(string title, string message)
     {
-        var escapedTitle = title.Replace("\"", "\\\"");
-        var escapedMessage = message.Replace("\"", "\\\"");
-        _processRunner.Run("notify-send", $"\"{escapedTitle}\" \"{escapedMessage}\"");
+        _processRunner.Run("notify-send", title, message);
     }
 }

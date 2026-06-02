@@ -27,6 +27,6 @@ public class WindowsNotificationStrategy : INotificationStrategy
                         $"Start-Sleep -Seconds 1; " +
                         $"$notification.Dispose();";
 
-        _processRunner.Run("powershell", $"-NoProfile -ExecutionPolicy Bypass -Command \"{psCommand}\"");
+        _processRunner.Run("powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-Command", psCommand);
     }
 }

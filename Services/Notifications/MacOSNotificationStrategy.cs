@@ -14,9 +14,9 @@ public class MacOSNotificationStrategy : INotificationStrategy
 
     public void ShowNotification(string title, string message)
     {
-        var escapedTitle = title.Replace("\"", "\\\"");
-        var escapedMessage = message.Replace("\"", "\\\"");
+        var escapedTitle = title.Replace("\\", "\\\\").Replace("\"", "\\\"");
+        var escapedMessage = message.Replace("\\", "\\\\").Replace("\"", "\\\"");
         var script = $"display notification \"{escapedMessage}\" with title \"{escapedTitle}\"";
-        _processRunner.Run("osascript", $"-e \"{script}\"");
+        _processRunner.Run("osascript", "-e", script);
     }
 }

@@ -4,16 +4,18 @@ namespace NetPresence.Services.Notifications;
 
 public class ProcessRunner : IProcessRunner
 {
-    public void Run(string fileName, string arguments)
+    public void Run(string fileName, params string[] arguments)
     {
-        Process.Start(new ProcessStartInfo
+        var psi = new ProcessStartInfo
         {
             FileName = fileName,
-            Arguments = arguments,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             UseShellExecute = false,
             CreateNoWindow = true
-        });
+        };
+        foreach (var arg in arguments)
+            psi.ArgumentList.Add(arg);
+        Process.Start(psi);
     }
 }

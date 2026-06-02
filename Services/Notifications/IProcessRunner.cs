@@ -2,5 +2,5 @@ namespace NetPresence.Services.Notifications;
 
 public interface IProcessRunner
 {
-    void Run(string fileName, string arguments);
+    void Run(string fileName, params string[] arguments);
 }

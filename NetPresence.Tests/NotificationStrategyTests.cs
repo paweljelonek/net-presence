@@ -1,5 +1,6 @@
 #pragma warning disable CA1416
 
+using System.Linq;
 using NetPresence.Services.Notifications;
 using Xunit;
 
@@ -8,10 +9,10 @@ namespace NetPresence.Tests;
 public class FakeProcessRunner : IProcessRunner
 {
     public string? LastFileName { get; private set; }
-    public string? LastArguments { get; private set; }
+    public string[]? LastArguments { get; private set; }
     public int RunCount { get; private set; }
 
-    public void Run(string fileName, string arguments)
+    public void Run(string fileName, params string[] arguments)
     {
         LastFileName = fileName;
         LastArguments = arguments;
@@ -30,7 +31,7 @@ public class NotificationStrategyTests
         strategy.ShowNotification("Hello World", "12:34:56");
 
         Assert.Equal("notify-send", fakeRunner.LastFileName);
-        Assert.Equal("\"Hello World\" \"12:34:56\"", fakeRunner.LastArguments);
+        Assert.Equal(new[] { "Hello World", "12:34:56" }, fakeRunner.LastArguments);
         Assert.Equal(1, fakeRunner.RunCount);
     }
 
@@ -43,8 +44,9 @@ public class NotificationStrategyTests
         strategy.ShowNotification("Hello World", "12:34:56");
 
         Assert.Equal("osascript", fakeRunner.LastFileName);
-        Assert.Contains("Hello World", fakeRunner.LastArguments);
-        Assert.Contains("12:34:56", fakeRunner.LastArguments);
+        Assert.Equal("-e", fakeRunner.LastArguments?[0]);
+        Assert.Contains("Hello World", fakeRunner.LastArguments?[1]);
+        Assert.Contains("12:34:56", fakeRunner.LastArguments?[1]);
         Assert.Equal(1, fakeRunner.RunCount);
     }
 
@@ -57,8 +59,8 @@ public class NotificationStrategyTests
         strategy.ShowNotification("Hello World", "12:34:56");
 
         Assert.Equal("powershell", fakeRunner.LastFileName);
-        Assert.Contains("Hello World", fakeRunner.LastArguments);
-        Assert.Contains("12:34:56", fakeRunner.LastArguments);
+        Assert.Contains("Hello World", fakeRunner.LastArguments?.Last());
+        Assert.Contains("12:34:56", fakeRunner.LastArguments?.Last());
         Assert.Equal(1, fakeRunner.RunCount);
     }
 }
