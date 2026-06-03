@@ -24,4 +24,7 @@ public class AppConfig
 
     [JsonPropertyName("launch_on_startup")]
     public bool LaunchOnStartup { get; set; } = false;
+
+    [JsonPropertyName("is_running")]
+    public bool IsRunning { get; set; } = false;
 }
