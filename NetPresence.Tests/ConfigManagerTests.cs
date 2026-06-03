@@ -54,6 +54,10 @@ public class ConfigManagerTests : IDisposable
     public void AppConfig_DefaultLaunchOnStartup_IsFalse()
         => Assert.False(new AppConfig().LaunchOnStartup);
 
+    [Fact]
+    public void AppConfig_DefaultIsRunning_IsFalse()
+        => Assert.False(new AppConfig().IsRunning);
+
     // ── ConfigManager.Load ──────────────────────────────────────────────────
 
     [Fact]
@@ -100,7 +104,8 @@ public class ConfigManagerTests : IDisposable
             CircularMouseMovement = true,
             StartImmediatelyOnLaunch = false,
             ShowNotification = true,
-            LaunchOnStartup = true
+            LaunchOnStartup = true,
+            IsRunning = true
         };
 
         Directory.CreateDirectory(_testDir);
@@ -116,6 +121,7 @@ public class ConfigManagerTests : IDisposable
         Assert.Equal(expected.StartImmediatelyOnLaunch, loaded.StartImmediatelyOnLaunch);
         Assert.Equal(expected.ShowNotification, loaded.ShowNotification);
         Assert.Equal(expected.LaunchOnStartup, loaded.LaunchOnStartup);
+        Assert.Equal(expected.IsRunning, loaded.IsRunning);
     }
 
     // ── ConfigManager.Save ──────────────────────────────────────────────────
@@ -162,7 +168,8 @@ public class ConfigManagerTests : IDisposable
             CircularMouseMovement = true,
             StartImmediatelyOnLaunch = false,
             ShowNotification = true,
-            LaunchOnStartup = true
+            LaunchOnStartup = true,
+            IsRunning = true
         };
 
         ConfigManager.Save(original, _testConfigPath);
@@ -175,6 +182,7 @@ public class ConfigManagerTests : IDisposable
         Assert.Equal(original.StartImmediatelyOnLaunch, restored.StartImmediatelyOnLaunch);
         Assert.Equal(original.ShowNotification, restored.ShowNotification);
         Assert.Equal(original.LaunchOnStartup, restored.LaunchOnStartup);
+        Assert.Equal(original.IsRunning, restored.IsRunning);
     }
 
     [Fact]
@@ -217,6 +225,7 @@ public class ConfigManagerTests : IDisposable
         Assert.Contains("\"start_immediately_on_launch\"", raw);
         Assert.Contains("\"show_notification\"", raw);
         Assert.Contains("\"launch_on_startup\"", raw);
+        Assert.Contains("\"is_running\"", raw);
     }
 
     [Fact]
@@ -245,6 +254,7 @@ public class ConfigManagerTests : IDisposable
         Assert.True(config.StartImmediatelyOnLaunch);
         Assert.False(config.ShowNotification);
         Assert.False(config.LaunchOnStartup);
+        Assert.False(config.IsRunning);
     }
 
     [Fact]

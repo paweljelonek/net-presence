@@ -8,6 +8,7 @@ namespace NetPresence;
 public partial class MainWindow : Window
 {
     private AppConfig _config;
+    private bool _isRunning = false;
 
     public MainWindow()
     {
@@ -25,6 +26,18 @@ public partial class MainWindow : Window
         StartImmediatelyCheckBox.IsChecked = _config.StartImmediatelyOnLaunch;
         NotificationCheckBox.IsChecked = _config.ShowNotification;
         StartupCheckBox.IsChecked = _config.LaunchOnStartup;
+        _isRunning = _config.IsRunning;
+        StartButton.Content = _isRunning ? "Pause" : "Start";
+        StatusText.Text = _isRunning ? "Status: running" : "Status: stopped";
+    }
+
+    private void StartButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        _isRunning = !_isRunning;
+        StartButton.Content = _isRunning ? "Pause" : "Start";
+        StatusText.Text = _isRunning ? "Status: running" : "Status: stopped";
+        _config.IsRunning = _isRunning;
+        ConfigManager.Save(_config);
     }
 
     private void SaveButton_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
